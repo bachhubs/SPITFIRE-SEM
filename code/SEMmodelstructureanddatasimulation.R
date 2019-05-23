@@ -13,3 +13,4 @@ SP.model <- '
             lepta ~ nucella
             #residual (co)variances
             y1 ~~ y2'
+#talk to ben tomorrow about how to simulate data
