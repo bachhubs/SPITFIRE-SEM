@@ -12,4 +12,4 @@ SP.model <- '
             nucella ~ climate
             lepta ~ nucella
             #residual (co)variances
-            y1 ~~ y2'
+            y1 ~~ y2
