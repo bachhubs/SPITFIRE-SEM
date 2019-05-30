@@ -3,3 +3,4 @@
 
 #install.packages("semPlot")
 library(semPlot)
+help(semPlot)
