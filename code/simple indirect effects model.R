@@ -9,12 +9,9 @@ library(semPlot)
 #specify model
 simple.model <-'
               #measurementmodel
-              lepta =~ 1*prey
+              lepta =~ 3*prey
               nucella =~ 2*prey
-            
-              #regression
-#lepta ~ 3*nucella removed bc its not what we want for this model
-              
+
               #residual (co)variances
               nucella ~~ lepta
 '
@@ -27,7 +24,9 @@ simpledata <- simulateData(simple.model,
                            return.type = "data.frame", 
                            return.fit = TRUE)
 
-fitsimple.model <- '
+
+#fit
+fitsimple.model1 <- '
               #measurementmodel
               lepta =~ prey
               nucella =~ prey
@@ -38,10 +37,10 @@ fitsimple.model <- '
               #residual co(variances)
               nucella ~~ lepta
               '
-fitsimple.model <- sem(fitsimple.model, data=simpledata)
-summary(fitsimple.model)
+fitsimple.model1 <- sem(fitsimple.model1, data=simpledata)
+summary(fitsimple.model1)
 
 #turns out you can actually bypass simulating data to visualize models... just had to figure out syntax
-simplesyntax <- semSyntax(fitsimple.model, "lavaan")
+simplesyntax <- semSyntax(fitsimple.model1, "lavaan")
 simplepath <- semPlotModel(simplesyntax)
 semPaths(simplepath, what="paths",title=FALSE)

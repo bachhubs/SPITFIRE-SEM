@@ -1,3 +1,6 @@
+rm(list=ls())
+graphics.off()
+
 ##vignette for R package lavaan
 library(lavaan)
 
@@ -28,5 +31,15 @@ summary(fit, standardized=TRUE)
 #adding in the means of observed variables
 fit <- sem(model, data=PoliticalDemocracy, meanstructure=TRUE)
 summary(fit, standardized=TRUE)
+
+#visualize it
+library(semPlot)
+
+simplesyntax <- semSyntax(fit, "lavaan")
+simplepath <- semPlotModel(simplesyntax)
+semPaths(simplepath, what="paths",title=FALSE)
+
+#The dashed line indicates fixed parameter estimates, 
+#you can change that with the fixedStyle argument.
 
 

@@ -40,6 +40,13 @@ SP.fitmodel<- '
 fit <- sem(SP.fitmodel, data=SEMdata)
 summary(fit)
 
+#added 6/3/19: visualizing this model as it is parameterized in SP.fitmodel
+simplesyntax <- semSyntax(SP.fitmodel, "lavaan")
+simplepath <- semPlotModel(simplesyntax)
+semPaths(simplepath, what="paths",title=FALSE)
+
+#it's wild and definitely not what i wanted this to look like!
+
 #scraps- from working with Ben on model fit + parameterization
 #got the code working (generates data, not latent variables. Have to fit data to compare back to specified parameter vals. in o.g. model)
 if(0){
