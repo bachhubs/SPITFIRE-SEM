@@ -13,7 +13,7 @@ simple.model <-'
               nucella =~ 2*prey
 
               #residual (co)variances
-              nucella ~~ lepta
+              #nucella ~~ lepta
 '
 
 #simulatedata
@@ -26,7 +26,7 @@ simpledata <- simulateData(simple.model,
 
 
 #fit
-fitsimple.model1 <- '
+fitsimple.model <- '
               #measurementmodel
               lepta =~ prey
               nucella =~ prey
@@ -35,10 +35,10 @@ fitsimple.model1 <- '
               #lepta ~ nucella
               
               #residual co(variances)
-              nucella ~~ lepta
+              #nucella ~~ lepta
               '
-fitsimple.model1 <- sem(fitsimple.model1, data=simpledata)
-summary(fitsimple.model1)
+fitsimple.model <- sem(fitsimple.model, data=simpledata)
+summary(fitsimple.model)
 
 #turns out you can actually bypass simulating data to visualize models... just had to figure out syntax
 simplesyntax <- semSyntax(fitsimple.model1, "lavaan")
