@@ -1,3 +1,5 @@
+#working through an earlier version of the conceptual model, attempting to troubleshoot problems with simulateData function
+
 rm(list=ls())
 graphics.off()
 
