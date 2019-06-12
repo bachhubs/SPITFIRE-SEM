@@ -36,8 +36,8 @@ SEMdata <- simulateData (model,
 head(SEMdata)
 
 #sample moments
-round(cov(SEMdata),3)
-round(colMeans(SEMdata),3)
+round(cov(SEMdata),11)
+round(colMeans(SEMdata),11)
 
 #fit specified model to data we have generated
 
