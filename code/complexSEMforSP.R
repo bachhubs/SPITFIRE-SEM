@@ -1,4 +1,4 @@
-##creating a working SEM model for SPITFIRE
+##creating a working SEM for SPITFIRE
 
 rm(list=ls())
 graphics.off()
@@ -10,12 +10,12 @@ library(semPlot)
 #specify model for simulating data
 datamodel <- '
 #measurement model
-  climate =~ 1*h20temp + 0.4*upwelling + 0.27*airtemp
-  lepta =~ 0.32*y1 + .314*y2
-  nucella =~ .9*y3 + 0.6*y4
+  climate =~ h20temp + 0.1*upwelling + 0.2*airtemp
+  lepta =~ y1 + .3*y2
+  nucella =~ y3 + 0.4*y4
 #regressions
-  lepta ~ climate
-  nucella ~ climate + lepta
+  lepta ~ 0.5*climate
+  nucella ~ 0.6*climate + 0.7*lepta
 #residual correlations
   h20temp ~~ upwelling
   upwelling ~~ airtemp
@@ -25,10 +25,12 @@ datamodel <- '
 set.seed(1234)
 SEMdata <- simulateData (datamodel, 
                          model.type = "sem", 
-                         sample.nobs = 500L, 
+                         sample.nobs = 5000L, 
                          return.type = "data.frame", 
                          return.fit = TRUE)
 
+round(cov(SEMdata),7)
+round(colMeans(SEMdata),7)
 #fit specified model to data we have generated
 
 fit.model <- '
@@ -50,7 +52,7 @@ summary(fit)
 
 simplesyntax <- semSyntax(fit.model, "lavaan")
 simplepath <- semPlotModel(simplesyntax)
-semPaths(simplepath, what="paths",title=FALSE)
+semPaths(simplepath, what="paths",whatLabels="est",title="SPITFIRE structural equation model")
 
 #The dashed line indicates fixed parameter estimates, 
 #you can change that with the fixedStyle argument.
