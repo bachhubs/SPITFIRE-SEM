@@ -20,11 +20,7 @@ datamodel <- '
   h20temp ~~ upwelling
   upwelling ~~ airtemp
   y1 ~~ y2 + y3 + y4
-  y2 ~~ y3 + y4
-  y3 ~~ y4
   y5 ~~ y6 + y7 + y8
-  y6 ~~ y7 + y8
-  y7~~y8
 '
 
 #generate data frame with 500 iterations of variables y1-y7, h20temp, upwelling, and airtemp
@@ -39,7 +35,6 @@ round(cov(SEMdata),7)
 round(colMeans(SEMdata),7)
 
 #fit model to data we have generated
-
 fit.model <- '
 #measurement model
   climate =~ h20temp + upwelling + airtemp
@@ -49,27 +44,21 @@ fit.model <- '
   lepta ~ climate
   nucella ~ climate + lepta
 #residual correlations
-  h20temp ~~ upwelling
+ h20temp ~~ upwelling
   upwelling ~~ airtemp
-  y1 ~~ y2 + y3 + y4
-  y2 ~~ y3 + y4
-  y3 ~~ y4
+ y1 ~~ y2 + y3 + y4
   y5 ~~ y6 + y7 + y8
-  y6 ~~ y7 + y8
-  y7~~y8
 '
 
 fit <- sem(fit.model, data=SEMdata)
 summary(fit)
+parameterEstimates(fit)
 
 #visualize it
 
-simplesyntax <- semSyntax(fit, "lavaan")
-simplepath <- semPlotModel(simplesyntax)
-
-labels <-c("Water \nTemperature", "Upwelling", "Air \nTemperature","y1","y2","y3","y4","y5","y6","y7","y8","Climate","Leptasterias","Nucella")
-semPaths(fit, what="std", nodeLabels = labels)
-title("SPITFIRE structural equation model")
+labels <-c("Water \nTemperature", "Upwelling", "Air \nTemperature","Algae","Barnacles","Mussels","Bare \nSpace","Algae","Barnacles","Mussels","Bare \nSpace","Climate","Leptasterias","Nucella")
+semPaths(fit, what="path", whatLabels = "est", nodeLabels = labels, sizeMan=10, sizeLat=10, fade=TRUE, fixedStyle = c("Black"))
+title("SPITFIRE structural equation model", line = 3.3)
 
 ####NOTE
 #this model syntax occasionally gives the error that the model could not be identified-- need to re-run to figure out what is going on here
